@@ -104,7 +104,8 @@ AlmaLinux 8, 9で同様なことをすると
 になっている。
 
 上のプログラムを``cc -v -g -O2 -Wall -o sample sample``でコンパイルした
-ときのcollect2のオプションを抜き出したもの
+ときのcollect2のオプションを抜き出したもの(collect2の行を抜き出し
+``sed -e 's/ /\n/g'``したもの)。
 
 - [AlmaLinux 9](ld.almalinux.txt)
 - [ubuntu 202404LTS](ld.ubuntu.txt)
