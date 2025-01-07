@@ -81,6 +81,28 @@ Dynamic section at offset 0x1644a8 contains 33 entries:
 
 ## --as-needed, --no-as-needed
 
+debian, ubuntuでは``--no-as-needed``がデフォルトになっている。
+たとえばsample.cとして
+```
+int main(int argc, char *argv[])
+{
+    return 0;
+}
+```
+というプログラムを用意して
+
+```
+cc -o sample sample.c -lxml2
+```
+とコンパイルして、``readelf -d sample``で見るとNEEDEDはlibc.so.6だけである。
+
+AlmaLinux 8, 9で同様なことをすると
+```
+ 0x0000000000000001 (NEEDED)             Shared library: [libxml2.so.2]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+```
+になっている。
+
 ## --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 
 ## RUNPATH
