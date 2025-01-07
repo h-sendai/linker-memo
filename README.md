@@ -116,3 +116,7 @@ AlmaLinux 8, 9で同様なことをすると
 ## RUNPATH
 
 ## patchelf
+
+patchelfでELF (Executable and Linkable Format)を編集できる。
+たとえばあとからRUNPATHを追加することができる。
+[例題](patchelf-example)
