@@ -103,6 +103,13 @@ AlmaLinux 8, 9で同様なことをすると
 ```
 になっている。
 
+上のプログラムを``cc -v -g -O2 -Wall -o sample sample``でコンパイルした
+ときのcollect2のオプションを抜き出したもの
+
+- [AlmaLinux 9](ld.almalinux.txt)
+- [ubuntu 202404LTS](ld.ubuntu.txt)
+- 差分 ``diff -u ld.almalinux.txt ld.ubuntu.txt``の結果 (diff.linker-option.txt)
+
 ## --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 
 ## RUNPATH
