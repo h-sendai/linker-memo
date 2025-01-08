@@ -8,7 +8,7 @@
 - readelf
 - --as-needed、--no-as-needed
 - --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
-- RUNPATH
+- RPATH、RUNPATH
 - patchelf
 
 ## gcc -Wl,linker-option
@@ -113,10 +113,32 @@ AlmaLinux 8, 9で同様なことをすると
 
 ## --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 
-## RUNPATH
+## RPATH、RUNPATH
+
+実行ファイル、あるいはシェアードライブラリファイルにシェアードライブラリ
+ファイルの検索パスを埋め込むことができる(``DT_RPATH``あるいは``DT_RUNPATH``)。
+``$ORIGION``とかけばそのファイルが存在したディレクトリに展開される。
+``$ORIGIN:$ORIGIN/../lib``として複数の値を指定することもできる。
+
+シェルのコマンドラインから``$ORIGIN``を埋め込む際には、シェル変数として展開
+されないように``'`` (single quote)で囲む。
+```
+gcc ... -Wl,-rpath,'$ORIGIN'
+```
+Makefileでは``'$$ORIGIN'``と書く。
+
+``gcc ... -Wl,-rpath,mypath``と指定した場合、AlmaLinux 8, 9, Kittenでは
+``RPATH``に格納される。Debian, Ubuntu, ArchLinuxでは``RUNPATH``に格納される。
+RUNPATHのほうが推奨されているようだ。
+
+AlmaLinuxで``RUNPATH``に埋め込むには``--enable-new-dtags``オプションを指定する:
+```
+gcc ... -Wl,--enable-new-dtags -Wl,-rpath,mypath
+```
 
 ## patchelf
 
 patchelfでELF (Executable and Linkable Format)を編集できる。
 たとえばあとからRUNPATHを追加することができる。
 [例題](patchelf-example)
+
