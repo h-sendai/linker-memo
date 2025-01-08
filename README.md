@@ -151,7 +151,7 @@ Dynamic section at offset 0x1644a8 contains 33 entries:
 ```
 cc -g -O2 -Wall -std=gnu17  -Wl,--copy-dt-needed-entries  lxml2-example.c  -lxml2 -o lxml2-example
 ```
-と``-lz``なしにコンパイルしてもエラーにならずに
+と``-lz``なしにコンパイルしてもエラーにならずに正常に実行ファイルができる。
 できあがったlxml2-example実行ファイルは
 
 ```
@@ -165,6 +165,8 @@ Dynamic section at offset 0xdf0 contains 26 entries:
 ```
 
 のようにlibzが埋め込まれるようになる。
+
+現在は上に書いたように``--no-copy-dt-needed-entries``がデフォルトになっている。
 
 ## RPATH、RUNPATH
 
