@@ -81,7 +81,20 @@ Dynamic section at offset 0x1644a8 contains 33 entries:
 
 ## --as-needed, --no-as-needed
 
-debian, ubuntuでは``--no-as-needed``がデフォルトになっている。
+``--as-needed``が指定されるとそれ以降に指定されたシェアードライブラリが
+必要かどうか判断され、必要なら``DT_NEEDED``にライブラリ名が入り、
+必要なければ入らない。
+
+``--no-as-needed``が指定されるとそれ以降に指定されたシェアードライブラリ
+が必ず``DT_NEEDED``に入る。
+
+どちらがデフォルトであるかはLinuxディストリビューションで違い
+- debian, ubuntuでは``--as-needed``
+- AlmaLinux, ArchLinuxでは``--no-as-needed``
+がデフォルトになっている。
+
+例題:
+
 たとえばsample.cとして
 ```
 int main(int argc, char *argv[])
