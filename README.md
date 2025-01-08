@@ -197,3 +197,65 @@ patchelfでELF (Executable and Linkable Format)を編集できる。
 たとえばあとからRUNPATHを追加することができる。
 [例題](patchelf-example)
 
+## ROOT
+
+AlmaLinuxにepelリポジトリからいれたrootについてはライブラリファイルに
+RUNPATHはついていない:
+```
+% readelf -d libCore.so
+
+Dynamic section at offset 0x46a448 contains 38 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libpcre2-8.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblzma.so.5]
+ 0x0000000000000001 (NEEDED)             Shared library: [libxxhash.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblz4.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libzstd.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-x86-64.so.2]
+ 0x000000000000000e (SONAME)             Library soname: [libCore.so.6.32]
+(以下略) 
+```
+
+ソースからコンパイルするとRUNPATHが入っている:
+```
+% readelf -d libCore.so
+
+Dynamic section at offset 0x597d40 contains 32 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-x86-64.so.2]
+ 0x000000000000000e (SONAME)             Library soname: [libCore.so]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN:$ORIGIN/../lib]
+```
+
+https://root.cern/ からダウンロードしたubuntu用pre-compiled binaryは
+RUNPATHが入っている:
+
+```
+% readelf -d /usr/local/root/lib/libCore.so
+
+Dynamic section at offset 0x489d88 contains 37 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libpcre2-8.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblzma.so.5]
+ 0x0000000000000001 (NEEDED)             Shared library: [libxxhash.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblz4.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libzstd.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-x86-64.so.2]
+ 0x000000000000000e (SONAME)             Library soname: [libCore.so]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN:$ORIGIN/../lib]
+```
