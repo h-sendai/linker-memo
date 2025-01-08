@@ -126,6 +126,46 @@ AlmaLinux 8, 9で同様なことをすると
 
 ## --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 
+``--add-needed``はdeprecatedで、``--copy-dt-needed-entries``を使う。
+``--no-add-needed``もdeprecatedで``--no-copy-dt-needed-entries``を使う。
+
+AlmaLinuxではリンカが``--no-add-needed``付きで起動されている(``--no-copy-dt-needed-entries``の動作をする)。
+Debian, Ubuntuでは指定されていないが、AlmaLinux同様に``--no-copy-dt-needed-entries``がデフォルトに
+なっているようだ。
+
+たとえばlibxml2は
+```
+% readelf -d /usr/lib64/libxml2.so
+
+Dynamic section at offset 0x1644a8 contains 33 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblzma.so.5]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+```
+のようにlibz, liblzma, libmとlibcがNEEDEDになっている。
+[lxml2-example/lxml2-example.c](lxml2-example/lxml2-example.c)
+のようにlibz関数のみを使うプログラムをコンパイルするときに
+```
+cc -g -O2 -Wall -std=gnu17  -Wl,--copy-dt-needed-entries  lxml2-example.c  -lxml2 -o lxml2-example
+```
+と``-lz``なしにコンパイルしてもエラーにならずに
+できあがったlxml2-example実行ファイルは
+
+```
+% readelf -d lxml2-example
+
+Dynamic section at offset 0xdf0 contains 26 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libxml2.so.2]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+```
+
+のようにlibzが埋め込まれるようになる。
+
 ## RPATH、RUNPATH
 
 実行ファイル、あるいはシェアードライブラリファイルにシェアードライブラリ
