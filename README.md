@@ -272,6 +272,21 @@ Dynamic section at offset 0x489d88 contains 37 entries:
 
 ## CMakeでのRPATH, RUNPATHの設定
 
+cmakeを使ってRPATHを実行ファイルに埋め込む例。
+
+[cmake-rpath-example/](cmake-rpath-example/)
+
+```
+set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
+```
+とするとAlmaLinuxでは実行ファイルの``DT_RPATH``に``$ORIGIN``が入る。
+``DT_RUNPATH``に入れるには
+```
+SET(CMAKE_EXE_LINKER_FLAGS "-Wl,--enable-new-dtags")
+```
+を追加する。
+debian, ubuntuではこの追加をしなくても``DT_RUNPATH``に入る。
+
 ### ROOT
 
 ROOTでは
