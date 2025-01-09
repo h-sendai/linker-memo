@@ -14,7 +14,11 @@
 
 ## ELFフォーマットマニュアルページ
 
-[ELFフォーマットマニュアルページ](https://man7.org/linux/man-pages/man5/elf.5.html)
+- [ELFフォーマットマニュアルページ](https://man7.org/linux/man-pages/man5/elf.5.html)
+- [Linuxダイナミックリンカ/ローダ (ld.so) マニュアルページ](https://man7.org/linux/man-pages/man8/ld.so.8.html)
+
+ld.soマニュアルページにはelfファイル内のDT_RPATH、DT_RUNPATH、環境変数LD_LIBRARY_PATHの
+優先順位が書いてある。
 
 ## gcc -Wl,linker-option
 
