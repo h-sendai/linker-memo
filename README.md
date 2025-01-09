@@ -4,12 +4,17 @@
 
 もくじ
 
+- man 5 elf
 - gcc -Wl,linker-option
 - readelf
 - --as-needed、--no-as-needed
 - --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 - RPATH、RUNPATH
 - patchelf
+
+## ELFフォーマットマニュアルページ
+
+[ELFフォーマットマニュアルページ](https://man7.org/linux/man-pages/man5/elf.5.html)
 
 ## gcc -Wl,linker-option
 
