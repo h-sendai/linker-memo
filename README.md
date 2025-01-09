@@ -11,6 +11,7 @@
 - --copy-dt-needed-entries、--no-copy-dt-needed-entries (旧--add-needed、--no-add-needed)
 - RPATH、RUNPATH
 - patchelf
+- CMakeでのRPATH, RUNPATHの設定
 
 ## ELFフォーマットマニュアルページ
 
@@ -268,3 +269,10 @@ Dynamic section at offset 0x489d88 contains 37 entries:
  0x000000000000000e (SONAME)             Library soname: [libCore.so]
  0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN:$ORIGIN/../lib]
 ```
+
+## CMakeでのRPATH, RUNPATHの設定
+
+### ROOT
+
+ROOTでは
+[cmake/modules/RootBuildOptions.cmake](https://github.com/root-project/root/blob/master/cmake/modules/RootBuildOptions.cmake#L428) で設定しているようだ。
