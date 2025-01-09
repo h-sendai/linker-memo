@@ -276,3 +276,13 @@ Dynamic section at offset 0x489d88 contains 37 entries:
 
 ROOTでは
 [cmake/modules/RootBuildOptions.cmake](https://github.com/root-project/root/blob/master/cmake/modules/RootBuildOptions.cmake#L428) で設定しているようだ。
+
+AlmaLinux 9でソースからコンパイルするとreadelf -dで``RPATH``が
+``[$ORIGIN:$ORIGIN/../lib]``となっている。
+
+ROOTのビルドはcmakeを使ってビルド用ディレクトリ内にコンパイル結果を置く。
+builddir/bin/rootではRPATHの値が``[::::::::::::::::::::::]``になっている:
+% readelf -d buildir/rbin/root | grep RPATH
+ 0x000000000000000f (RPATH)              Library rpath: [::::::::::::::::::::::]
+% readelf -d /usr/local/root/bin/root | grep RPATH
+ 0x000000000000000f (RPATH)              Library rpath: [$ORIGIN:$ORIGIN/../lib]
