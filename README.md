@@ -203,7 +203,7 @@ gcc ... -Wl,--enable-new-dtags -Wl,-rpath,mypath
 
 ## patchelf
 
-patchelfでELF (Executable and Linkable Format)を編集できる。
+patchelfでELF (Executable and Linking Format)を編集できる。
 たとえばあとからRUNPATHを追加することができる。
 [例題](patchelf-example)
 
