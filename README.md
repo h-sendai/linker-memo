@@ -117,7 +117,8 @@ int main(int argc, char *argv[])
 ```
 cc -o sample sample.c -lxml2
 ```
-とコンパイルして、``readelf -d sample``で見るとNEEDEDはlibc.so.6だけである。
+とコンパイルして、``readelf -d sample``で見るとDebian, Ubuntuでは
+NEEDEDはlibc.so.6だけである。
 
 AlmaLinux 8, 9で同様なことをすると
 ```
