@@ -1,9 +1,7 @@
 #include <stdio.h>
 
-extern int my_print();
-
-int main(int argc, char *argv[])
+int my_print()
 {
-    my_print();
+    printf("my_print()\n");
     return 0;
 }
