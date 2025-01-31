@@ -299,7 +299,7 @@ AlmaLinux 9でソースからコンパイルするとreadelf -dで``RPATH``が
 ROOTのビルドはcmakeを使ってビルド用ディレクトリ内にコンパイル結果を置く。
 builddir/bin/rootではRPATHの値が``[::::::::::::::::::::::]``になっている:
 ```
-% readelf -d buildir/rbin/root | grep RPATH
+% readelf -d buildir/bin/root | grep RPATH
  0x000000000000000f (RPATH)              Library rpath: [::::::::::::::::::::::]
 % readelf -d /usr/local/root/bin/root | grep RPATH
  0x000000000000000f (RPATH)              Library rpath: [$ORIGIN:$ORIGIN/../lib]
